@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+   <link rel="stylesheet" href="{% static 'home.css' %}">
+   <script src="{% static 'home.js' %}"></script>  
+   <title> Word Photo</title>
+    <body>
+        <div id="title-content">
+            <h1>Word photo</h1> <!-- Will make logo and change to image instead of title-->
+            <h3>Convert a photo into an array of keyboard characters</h3>
+        </div>
+        <div id="main-content">
+            <div id="img-container">
+                <img id="selected-image" src="" alt="">
+            </div>
+
+            <div id="toolbar">
+                <!-- photo input -->
+                
+                <input onclick="handleImageSelection()" type="file" id="img-upload" accept="image/*">
+                
+                <button id="convert-button"> Convert </button>
+
+                <button id="cancel-button" onclick="handleClear()"> Cancel </button>
+                
+            </div>
+            
+        </div>
+
+
+
+    
+    </body>
+</html>
