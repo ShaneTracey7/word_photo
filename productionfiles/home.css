@@ -1,3 +1,97 @@
-p {
-    color: blue;
+h3 {
+    font-weight: bold;
+    text-align: center;
 }
+
+h1{
+    text-align: center;
+}
+#title-content{
+    margin: auto;
+    width: 70%;
+}
+
+#main-content{
+    margin: auto;
+    
+}
+
+#img-container{
+    border-radius: 10px;
+    border: 10px solid lightblue;
+    width: 70%;
+    height: auto;
+    max-width: 900px;
+    max-height: 900px;
+    min-width: 400px;
+    min-height: 400px;
+    margin:auto;
+    padding: 0;
+}
+
+#toolbar{
+    margin: auto;
+    width:fit-content;
+    height: 60px;
+    margin-top: 50px;
+    background-color: lightblue;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    padding-left: 30px;
+    padding-right: 30px;
+    gap: 30px;
+
+}
+
+#img-upload{
+    text-align: center;
+    align-items: center;
+    margin: auto;
+}
+#selected-image{
+    max-width: 890px;
+    max-height: 900px;
+    width: 98%;
+    height: auto;
+    min-width: 390px;
+    min-height: 400px;
+    padding-left: 6px;
+    padding-right: 10px;
+    padding-top: 5px;
+    margin: 0;
+    border: 0;
+}
+
+#convert-button{
+    display:none;
+    border-radius: 15px;
+    background-color: rgb(23, 150, 32);
+    color: white;
+    border: 0;
+    width: 120px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+
+}
+
+#cancel-button{
+    display:none;
+    border-radius: 15px;
+    background-color: rgb(211, 87, 34);
+    color: white;
+    border: 0;
+    width: 120px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+}
+

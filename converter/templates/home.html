@@ -1,8 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-   <link rel="stylesheet" href="{% static 'home.css' %}">
-   <script src="{% static 'home.js' %}"></script>  
+   <link rel="stylesheet" href="{% static 'css/home.css' %}">
+   
    <title> Word Photo</title>
     <body>
         <div id="title-content">
@@ -18,17 +18,17 @@
                 <!-- photo input -->
                 
                 <input onclick="handleImageSelection()" type="file" id="img-upload" accept="image/*">
-                
-                <button id="convert-button"> Convert </button>
+             
+                <button onclick="handleConvert()" id="convert-button"> Convert </button>
 
-                <button id="cancel-button" onclick="handleClear()"> Cancel </button>
-                
+                <button onclick="handleClear()" id="cancel-button" > Cancel </button> 
+
             </div>
             
         </div>
 
 
 
-    
+        <script type="text/javascript" src="{% static 'js/home.js' %}"></script>  
     </body>
 </html>
