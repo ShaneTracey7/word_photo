@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-   <link rel="stylesheet" href="{% static 'css/home.css' %}">
+   <link rel="stylesheet" href="{% static 'css/result.css' %}">
    
    <title> Word Photo</title>
     <body>
@@ -11,20 +11,18 @@
         </div>
         <div id="main-content">
             <div id="img-container">
-                <img id="selected-image" src="" alt="">
+                <p id="result-value">Converted image value here {{value}}</p>
+                
             </div>
 
             <div id="toolbar">
                 <!-- photo input -->
-                <input onclick="handleImageSelection()" type="file" id="img-upload" accept="image/*" width="780">
-                <button onclick="handleConvert()" class="button" id="convert-button"> Convert </button>
-                <button onclick="handleClear()" class="button" id="cancel-button" > Cancel </button> 
+                <button onclick="handleReset()" class="button" id="reset-button" > Reset </button>
+                <button onclick="handleCopy()" class="button" id="copy-button" > Copy </button>
             </div>
             
         </div>
 
-
-
-        <script type="text/javascript" src="{% static 'js/home.js' %}"></script>  
+        <script type="text/javascript" src="{% static 'js/result.js' %}"></script>  
     </body>
 </html>

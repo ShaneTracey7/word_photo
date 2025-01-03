@@ -45,11 +45,6 @@ h1{
 
 }
 
-#img-upload{
-    text-align: center;
-    align-items: center;
-    margin: auto;
-}
 #selected-image{
     max-width: 890px;
     max-height: 900px;
@@ -64,14 +59,10 @@ h1{
     border: 0;
 }
 
-#convert-button{
-    display:none;
-    background-color: rgb(23, 150, 32);
-}
-
-#cancel-button{
-    display:none;
-    background-color: rgb(211, 87, 34);
+#reset-button{
+    background-color: black;
+    color: rgb(211, 87, 34);
+    display:block;
 }
 
 .button{
@@ -85,4 +76,11 @@ h1{
     text-align: center;
     align-items: center;
     margin: auto;
+    
 }
+
+#copy-button{
+    background-color: blue;
+    display:block;
+}
+

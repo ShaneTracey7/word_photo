@@ -21,8 +21,8 @@ h1{
     border: 10px solid lightblue;
     width: 70%;
     height: auto;
-    max-width: 900px;
-    max-height: 900px;
+    max-width: 786px;
+    max-height: 786px;
     min-width: 400px;
     min-height: 400px;
     margin:auto;
@@ -51,8 +51,8 @@ h1{
     margin: auto;
 }
 #selected-image{
-    max-width: 890px;
-    max-height: 900px;
+    max-width: 776px;
+    max-height: 776px;
     width: 98%;
     height: auto;
     min-width: 390px;
