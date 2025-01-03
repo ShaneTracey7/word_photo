@@ -1,6 +1,7 @@
 h3 {
-    font-weight: bold;
+    /*font-weight: bold;*/
     text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 h1{
@@ -21,8 +22,8 @@ h1{
     border: 10px solid lightblue;
     width: 70%;
     height: auto;
-    max-width: 786px;
-    max-height: 786px;
+    max-width: 900px;
+    max-height: 900px;
     min-width: 400px;
     min-height: 400px;
     margin:auto;
@@ -51,8 +52,8 @@ h1{
     margin: auto;
 }
 #selected-image{
-    max-width: 776px;
-    max-height: 776px;
+    max-width: 890px;
+    max-height: 900px;
     width: 98%;
     height: auto;
     min-width: 390px;

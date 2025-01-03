@@ -11,7 +11,10 @@
         </div>
         <div id="main-content">
             <div id="img-container">
-                <p id="result-value">Converted image value here {{value}}</p>
+                <!--<p id="result-value">{{value}}</p>-->
+                {% for text in value %} 
+                    <pre class="rows">{{ text|join:""}}</pre> 
+                {% endfor %}
                 
             </div>
 

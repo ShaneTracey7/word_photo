@@ -33,7 +33,7 @@ def result(request):
   else:
     template = loader.get_template('home.html')
     context = {
-        'value' : '',
+        'value' : ['empty'],
       }
     print('nothing in db')
     return HttpResponse(template.render(context,request))
@@ -57,6 +57,10 @@ def clearDB():
 # about 12 rows of that would look complete 
 
 def convertImage(image):
+
+  
+  row_num = 12 # OG = 12
+  col_num = 66 # OG = 66
   #dbImage = Image.objects.get(image_file=i.image_file)
   print('i.path: ' + image.image_file.path)
 
@@ -84,7 +88,7 @@ def convertImage(image):
     # [rows, columns] 
     cropped_image = img[0:h,col_start:col_end]
   #img_75 = cv.resize(img, None, fx = 0.75, fy = 0.75)
-  resized_img = cv.resize(cropped_image, (780,780))
+  resized_img = cv.resize(cropped_image, (792,792)) # OG = 792,792
   cv.imwrite('testcv.jpg', resized_img)# saves changed file to filesystem
   
   edges = cv.Canny(resized_img,100,200)
@@ -110,16 +114,15 @@ def convertImage(image):
   #list_x  = list(dict.fromkeys(list_x))
   #list_y  = list(dict.fromkeys(list_y))
   
-  #zipped = np.column_stack((list_x,list_y))
+  
   zipped = np.column_stack((X,Y))
   print('zipped: ')
   for coord in zipped:
     #print(coord)
-    coord[1] = coord[1] // 12
+    coord[1] = coord[1] // (row_num / 2) #6
     
   new = [] #defining a new array     
      
-  #iterating through each element of org array
   for i in zipped:
     if list(i) not in new:
         new.append(list(i))
@@ -129,41 +132,45 @@ def convertImage(image):
   #displaying the new array with updated/unique elements
   print("New Array : ")
   for c in new:
-    c[0] = c[0] // 65
+    c[0] = c[0] // (col_num / 3) #11
 
   new2 = [] #defining a new array     
      
-  #iterating through each element of org array
   for i in new:
     if list(i) not in new2:
         new2.append(list(i))
- 
+
   new2 = np.array(new2)
 
-  #displaying the new array with updated/unique elements
-  print("New2 Array : ")
-  for c in new2:
+  charArr = [] #set a empty char array
+  #nneded for testing
+  #charArr.append(['|'] * (col_num * 2))#132
+  #charArr.append(['.'] * (col_num * 2))#132
+  #charArr.append(['I'] * (col_num * 2))#132
+  for i in range(0, row_num * 3):
+    arr = [' '] * (col_num * 2)#132
+    charArr.append(arr)      
+  
+  strArr = []
+  row = 0
+  for i in new2:
+    charArr[i[0]][i[1]] = 'I'
+  
+  print("Char Array : ")
+  for c in charArr:
+    s = "".join(str(e) for e in c)
+    strArr.append([s])
+   
+  for c in strArr:
     print(c)
 
-
-
-
-
-  ######## new2 is the list of where all the 'L's should go on a 2D-array ##########
-
-  #print(zipped)
-  #fast = cv.FastFeatureDetector_create()
-  #kp = fast.detect(resized_img,None)
-  #print( "Total Keypoints: {}".format(len(kp)) )
-  #img2 = cv.drawKeypoints(resized_img, kp, None, color=(255,0,0))
-  #cv.imwrite('testcv2.jpg', img2)# saves changed file to filesystem
   i_name = image.image_file.name
   #very last step
   image.delete() #deletes from db
   os.remove(image.image_file.name)#deletes image from folder
   print('Image converted')
 
-  return i_name
+  return strArr
 
 
 
