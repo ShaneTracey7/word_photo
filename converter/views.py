@@ -50,8 +50,19 @@ def handleImage(request,id=id):
     return JsonResponse('incorrect request method',safe=False)
 
 def clearDB():
-   Image.objects.all().delete()
-   #find how to delete contents of folder (images folder)
+  Image.objects.all().delete()
+  parent = "/Users/Jarvis/Desktop/wpVirtEnv/word_photo/"
+  folder_path = os.path.join(parent, "images")
+  # check if directory contain
+  if len(os.listdir(folder_path)) == 0:
+    print("Directory is empty")
+  else:    
+    print("Directory is not empty")
+    # List all files in the directory
+    for filename in os.listdir(folder_path):
+      file_path = os.path.join(folder_path, filename)
+      os.remove(file_path)  # Remove the file
+      print(f"Deleted file: {filename}")
 
 # my phone can have 65 lowercase 'L's in each line max
 # about 12 rows of that would look complete 

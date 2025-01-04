@@ -10,10 +10,10 @@
             <h3>Convert a photo into an array of keyboard characters</h3>
         </div>
         <div id="main-content">
-            <div id="img-container">
-                <!--<p id="result-value">{{value}}</p>-->
+            
+            <div id="img-container" contenteditable>
                 {% for text in value %} 
-                    <pre class="rows">{{ text|join:""}}</pre> 
+                <pre class="rows">{{ text|join:""}}</pre> 
                 {% endfor %}
                 
             </div>
@@ -29,3 +29,4 @@
         <script type="text/javascript" src="{% static 'js/result.js' %}"></script>  
     </body>
 </html>
+

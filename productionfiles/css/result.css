@@ -90,3 +90,8 @@ h1{
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+textarea{
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    resize:none;
+    overflow: auto;
+}
