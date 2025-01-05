@@ -236,10 +236,10 @@ def createCharArr2(arr,row_num,col_num):
 def createCharArr(inArr,row_num,col_num):
 
   top = "'"
-  middle = '•'#could also be <:>
+  middle = '•'#could also be <:> or <•>
   bottom = ','
   mb = '¡' # upside down !
-  tm = 'I'
+  tm = 'I' # should be capital 'i'
   all = '|'
   tb = ':' # no top and bottom option 
   
@@ -254,7 +254,9 @@ def createCharArr(inArr,row_num,col_num):
   arrLength = np.size(inArr,axis=0)
   print('array length: ')
   print(arrLength)
-  for i in range(0, arrLength-1): 
+  #for i in range(0, arrLength-1): # iterate through each coordinate
+  i = 0
+  while i < arrLength-1: # iterate through each coordinate
     if i == 0:
       print('col:')
       print(inArr[i][1])
@@ -271,6 +273,7 @@ def createCharArr(inArr,row_num,col_num):
       #is bottom
       #fv / 3 = new y-coord in charArr
       #charArr[int(col/3)][int(fv/3)] = bottom
+      i = i + 1#increment i
       charArr[int(fv/3)][int(col/3)] = bottom
       
     elif row % fv == 1:
@@ -279,16 +282,18 @@ def createCharArr(inArr,row_num,col_num):
       nextCol = inArr[i+1][1]
       nextRow = inArr[i+1][0]
       if nextCol == col:
-        print('same col')
+        print('same col 2nd: ' + str(nextCol))
         if nextRow == (row+1):
           #is middle & bottom
           charArr[int(fv/3)][int(col/3)] = mb
-          i = i + 1#increment i
+          i = i + 2#increment i
         else:
           #is middle
+          i = i + 1#increment i
           charArr[int(fv/3)][int(col/3)] = middle
       else:
         #is middle
+        i = i + 1#increment i
         charArr[int(fv/3)][int(col/3)] = middle
 
     else: #row % fv == 0
@@ -297,41 +302,46 @@ def createCharArr(inArr,row_num,col_num):
       nextCol = inArr[i+1][1]
       nextRow = inArr[i+1][0]
       if nextCol == col:
-        print('same col')
+        print('same col 1st: ' + str(nextCol))
         if nextRow == (row+1):
           #is top & middle
           #is top & middle/ all
           if i+2 == arrLength:
             charArr[int(fv/3)][int(col/3)] = tm
-            #i = i + 1#increment i
+            i = i + 1#increment i
             break
           else:
             nextNextCol = inArr[i+2][1]
             nextNextRow = inArr[i+2][0]
             if nextNextCol == col:
-              print('same col')
+              print('same col 1st 2nd: '+ str(nextNextCol))
               if nextNextRow == (row+2):
                 #is all
+                print('all')
                 charArr[int(fv/3)][int(col/3)] = all
-                i = i + 2#increment i
+                i = i + 3#increment i
               else:
                 #is top & middle
+                print('top & middle')
                 charArr[int(fv/3)][int(col/3)] = tm
-                i = i + 1#increment i
+                i = i + 2#increment i
             else:
               #is top & middle
               charArr[int(fv/3)][int(col/3)] = tm
-              i = i + 1#increment i
+              i = i + 2#increment i
         else:
           if nextRow == (row+2):
             #is top & bottom
             charArr[int(fv/3)][int(col/3)] = tb
-            i = i + 1#increment i
+            i = i + 2#increment i
           else:
             #is top
+            i = i + 1#increment i
             charArr[int(fv/3)][int(col/3)] = top
+
       else:
         #is top
+        i = i + 1#increment i
         charArr[int(fv/3)][int(col/3)] = top
 
   strArr = []
