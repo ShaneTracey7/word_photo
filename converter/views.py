@@ -9,7 +9,7 @@ from converter.models import Image
 import cv2 as cv
 import numpy as np
 import os
-
+import time
 
 
 def home(request):
@@ -69,20 +69,16 @@ def clearDB():
 
 def convertImage(image):
 
-  
   row_num = 12 # OG = 12
   col_num = 66 # OG = 66
-  #dbImage = Image.objects.get(image_file=i.image_file)
-  print('i.path: ' + image.image_file.path)
-
+  
   # Reading the image using imread() function
+  print('i.path: ' + image.image_file.path)
   img = cv.imread(image.image_file.path,cv.IMREAD_GRAYSCALE)
   
-
   # Extracting the height and width of an image
   h, w = img.shape[:2]
-  # Displaying the height and width
-  print("Height = {}, Width = {}".format(h, w))
+  #print("Height = {}, Width = {}".format(h, w))
 
   #crop image to make square
   if h > w:
@@ -98,82 +94,66 @@ def convertImage(image):
     col_end = (w//2) + (h//2)
     # [rows, columns] 
     cropped_image = img[0:h,col_start:col_end]
-  #img_75 = cv.resize(img, None, fx = 0.75, fy = 0.75)
+
   resized_img = cv.resize(cropped_image, (792,792)) # OG = 792,792
   cv.imwrite('testcv.jpg', resized_img)# saves changed file to filesystem
   
+  #returns tracing of image in white and black (white lines)
   edges = cv.Canny(resized_img,100,200)
   cv.imwrite('testcv3.jpg', edges)
   im = cv.imread('testcv3.jpg')
   white = [255,255,255]
 
-  # Get X and Y coordinates of all blue pixels
+  # Get X and Y coordinates of all white pixels
   X, Y = np.where(np.all(im==white,axis=2))
+
+  #create 2D-array of coordinates
+  originalArr = np.column_stack((X,Y))
   
-  #def condenseX(num):
-   # return num #// 65
-  
-  #def condenseY(num):
-   # return num // 12
-  
-  #filtered_x = filter(condenseX, X)
-  #filtered_y = filter(condenseY, Y)
-  # Convert filter object to a list
-  #list_x = list(filtered_x)
-  #list_y = list(filtered_y)
-  #remove duplicates
-  #list_x  = list(dict.fromkeys(list_x))
-  #list_y  = list(dict.fromkeys(list_y))
-  
-  
-  zipped = np.column_stack((X,Y))
-  print('zipped: ')
-  for coord in zipped:
-    #print(coord)
-    coord[1] = coord[1] // (row_num / 2) #6
-    
-  new = [] #defining a new array     
+  print('originalArr: ')
+  for coord in originalArr:
+    coord[1] = coord[1] // (row_num / 2) #6 OG
+    #coord[1] = coord[1] // 2 #3
+
+  condensedArr1 = [] #defining a new array     
      
-  for i in zipped:
-    if list(i) not in new:
-        new.append(list(i))
+  for i in originalArr:
+    if list(i) not in condensedArr1:
+        condensedArr1.append(list(i))
  
-  new = np.array(new)
+  condensedArr1 = np.array(condensedArr1)
 
   #displaying the new array with updated/unique elements
-  print("New Array : ")
-  for c in new:
-    c[0] = c[0] // (col_num / 3) #11
+  print("condensedArr1 : ")
+  for c in condensedArr1:
+    c[0] = c[0] // ((col_num / 3) / 3) #11 or (col_num / 9)
 
-  new2 = [] #defining a new array     
+  condensedArr2 = [] #defining a new array     
      
-  for i in new:
-    if list(i) not in new2:
-        new2.append(list(i))
+  for i in condensedArr1:
+    if list(i) not in condensedArr2:
+        condensedArr2.append(list(i))
 
-  new2 = np.array(new2)
+  condensedArr2 = np.array(condensedArr2)
 
-  charArr = [] #set a empty char array
-  #nneded for testing
-  #charArr.append(['|'] * (col_num * 2))#132
-  #charArr.append(['.'] * (col_num * 2))#132
-  #charArr.append(['I'] * (col_num * 2))#132
-  for i in range(0, row_num * 3):
-    arr = [' '] * (col_num * 2)#132
-    charArr.append(arr)      
-  
-  strArr = []
-  row = 0
-  for i in new2:
-    charArr[i[0]][i[1]] = 'I'
-  
-  print("Char Array : ")
-  for c in charArr:
-    s = "".join(str(e) for e in c)
-    strArr.append([s])
-   
-  for c in strArr:
+  #print("Array b4 sort: ")
+  #for c in new2:
+    #print(c)
+
+  Index = 1
+  colSortArr = condensedArr2[condensedArr2[:,Index].argsort()]
+  #print("Array after 1st sort: ")
+  #for c in colSortArr :
+    #print(c)
+  #
+  finalSortArr = extraSort(colSortArr) #extraSort(colSortArr) #finalSortArr = extraSort(colSortArr) 
+  print("Array after final sort: ")
+  for c in finalSortArr:
     print(c)
+
+  #creates and sets char array
+  strArr = createCharArr(finalSortArr,row_num,col_num)
+
 
   i_name = image.image_file.name
   #very last step
@@ -186,4 +166,181 @@ def convertImage(image):
 
 
 
+
+
+# called after inArr has been sorted by column coordinate (Y-value)
+# sorts groups of coordinates with same Y-value , by their X-value 
+#keeps giving me index out of 
+def extraSort(inArr):
+
+  start = time.time()
+  arrLength = np.size(inArr,axis=0)
+  print('array length: ')
+  print(arrLength)
+  for i in range(0, arrLength-1):
+    col = inArr[i][1]
+    count = 1
+    arr = [inArr[i]]
+    while col == inArr[i+count][1]:
+      arr.append(inArr[i+count])
+      if (i + count) == (arrLength - 1): # (arrLength-1)
+        break
+      else:
+        count = count + 1
+    group_size = np.size(arr,axis=0)
+    if group_size > 1:
+      arr = np.sort(arr,axis=0)
+      for e in range(0, group_size):
+        inArr[i+e] = arr[e]
+      i = i + group_size -1 # -1 bc loop already increments 1 i think
+
+  #for testinf purposes
+  end = time.time() 
+  print(end - start)
+
+  return inArr
+
+
+
+
+
+def createCharArr2(arr,row_num,col_num):
   
+  charArr = [] #set a empty char array
+
+  for i in range(0, (row_num * 3) + 1): #for small
+  #for i in range(0, (row_num * 3) * 3): #(row_num * 9) for big
+    row = [' '] * (col_num)#132 for small
+    #row = [' '] * (col_num * 2)#132 for big
+    charArr.append(row)      
+  
+  strArr = []
+  
+  for i in arr:
+    #charArr[i[0]][i[1]] = '|' #I for big
+    charArr[int(i[0]/3)][int(i[1]/3)] = '|' #I  # for small
+  
+  print("Char Array : ")
+  for c in charArr:
+    s = "".join(str(e) for e in c)
+    strArr.append([s])
+   
+  for c in strArr:
+    print(c)
+
+  return strArr
+  
+
+
+
+def createCharArr(inArr,row_num,col_num):
+
+  top = "'"
+  middle = '•'#could also be <:>
+  bottom = ','
+  mb = '¡' # upside down !
+  tm = 'I'
+  all = '|'
+  tb = ':' # no top and bottom option 
+  
+
+  charArr = [] #set a empty char array
+
+  #initializes charArr with empty values
+  for i in range(0, (row_num * 3)+ 1): #(row_num * 9)
+    row = [' '] * (col_num)# was *2 132
+    charArr.append(row)   
+
+  arrLength = np.size(inArr,axis=0)
+  print('array length: ')
+  print(arrLength)
+  for i in range(0, arrLength-1): 
+    if i == 0:
+      print('col:')
+      print(inArr[i][1])
+      print('row:')
+      print(inArr[i][0])
+    col = inArr[i][1] # was 1 26 y 108 inArr[0] = 108
+    row = inArr[i][0] # was 0 31 x
+
+    #get first value (find range) (x // 3) * 3 (returns first value in range)
+    fv = (row // 3) * 3
+    if row % fv == 2:
+      print('3rd')
+      print('col: ' + str(col))
+      #is bottom
+      #fv / 3 = new y-coord in charArr
+      #charArr[int(col/3)][int(fv/3)] = bottom
+      charArr[int(fv/3)][int(col/3)] = bottom
+      
+    elif row % fv == 1:
+      print('2nd')
+      #is middle/middle & bottom
+      nextCol = inArr[i+1][1]
+      nextRow = inArr[i+1][0]
+      if nextCol == col:
+        print('same col')
+        if nextRow == (row+1):
+          #is middle & bottom
+          charArr[int(fv/3)][int(col/3)] = mb
+          i = i + 1#increment i
+        else:
+          #is middle
+          charArr[int(fv/3)][int(col/3)] = middle
+      else:
+        #is middle
+        charArr[int(fv/3)][int(col/3)] = middle
+
+    else: #row % fv == 0
+      print('1st')
+      #is top/top & middle/top & bottom/all
+      nextCol = inArr[i+1][1]
+      nextRow = inArr[i+1][0]
+      if nextCol == col:
+        print('same col')
+        if nextRow == (row+1):
+          #is top & middle
+          #is top & middle/ all
+          if i+2 == arrLength:
+            charArr[int(fv/3)][int(col/3)] = tm
+            #i = i + 1#increment i
+            break
+          else:
+            nextNextCol = inArr[i+2][1]
+            nextNextRow = inArr[i+2][0]
+            if nextNextCol == col:
+              print('same col')
+              if nextNextRow == (row+2):
+                #is all
+                charArr[int(fv/3)][int(col/3)] = all
+                i = i + 2#increment i
+              else:
+                #is top & middle
+                charArr[int(fv/3)][int(col/3)] = tm
+                i = i + 1#increment i
+            else:
+              #is top & middle
+              charArr[int(fv/3)][int(col/3)] = tm
+              i = i + 1#increment i
+        else:
+          if nextRow == (row+2):
+            #is top & bottom
+            charArr[int(fv/3)][int(col/3)] = tb
+            i = i + 1#increment i
+          else:
+            #is top
+            charArr[int(fv/3)][int(col/3)] = top
+      else:
+        #is top
+        charArr[int(fv/3)][int(col/3)] = top
+
+  strArr = []
+
+  for c in charArr:
+    s = "".join(str(e) for e in c)
+    strArr.append([s])
+
+  for c in strArr:
+    print(c)
+
+  return strArr
