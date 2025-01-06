@@ -112,7 +112,7 @@ def convertImage(image):
   
   print('originalArr: ')
   for coord in originalArr:
-    coord[1] = coord[1] // (row_num / 2) #6 OG
+    coord[1] = coord[1] // (row_num / 2) #6 OG 792/6 = 132
     #coord[1] = coord[1] // 2 #3
 
   condensedArr1 = [] #defining a new array     
@@ -125,9 +125,10 @@ def convertImage(image):
 
   #displaying the new array with updated/unique elements
   print("condensedArr1 : ")
-  for c in condensedArr1:
-    c[0] = c[0] // ((col_num / 3) / 3) #11 or (col_num / 9)
-
+  for c in condensedArr1:                                                           # X  x  Y
+    c[0] = c[0] // (col_num /6)#((col_num / 3) / 3) #11 or (col_num / 9)   792/7.3 = 108 or 72     108 x 132
+                                                                                   #  36 x  44 (plotted on char array)
+                                                                                   #  36   x  66   (char array)
   condensedArr2 = [] #defining a new array     
      
   for i in condensedArr1:
@@ -210,7 +211,8 @@ def createCharArr2(arr,row_num,col_num):
 
   for i in range(0, (row_num * 3) + 1): #for small
   #for i in range(0, (row_num * 3) * 3): #(row_num * 9) for big
-    row = [' '] * (col_num)#132 for small
+    row = [' '] * (int(col_num * (2/3)))#44 for small
+    #row = [' '] * (col_num) #66
     #row = [' '] * (col_num * 2)#132 for big
     charArr.append(row)      
   
@@ -236,19 +238,20 @@ def createCharArr2(arr,row_num,col_num):
 def createCharArr(inArr,row_num,col_num):
 
   top = "'"
-  middle = '•'#could also be <:> or <•>
+  middle = ':'#could also be <:> or <•>
   bottom = ','
   mb = '¡' # upside down !
   tm = 'I' # should be capital 'i'
   all = '|'
-  tb = ':' # no top and bottom option 
+  tb = ';' # top and bottom option 
   
 
   charArr = [] #set a empty char array
 
   #initializes charArr with empty values
   for i in range(0, (row_num * 3)+ 1): #(row_num * 9)
-    row = [' '] * (col_num)# was *2 132
+    row = [' '] * (int(col_num * (2/3)))# was *2 132
+    #row = [' '] * (col_num)#
     charArr.append(row)   
 
   arrLength = np.size(inArr,axis=0)

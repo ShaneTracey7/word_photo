@@ -1,7 +1,7 @@
 function handleCopy()
 {
     console.log('copy');
-    var val = String(document.getElementById("img-container").innerText);
+    var val = String(document.getElementById("t-container").innerText);
     navigator.clipboard.writeText(val);
 }
 

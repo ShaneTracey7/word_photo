@@ -16,17 +16,19 @@ h1{
     
 }
 
-#img-container{
+#t-container{
     border-radius: 10px;
     border: 10px solid lightblue;
-    width: 70%;
+    width: 190px;
     height: auto;
     max-width: 900px;
     max-height: 900px;
-    min-width: 400px;
-    min-height: 400px;
+    /*min-width: 400px;
+    min-height: 400px;*/
     margin:auto;
-    padding: 0;
+    padding:0;
+    padding-left: 200px;
+    padding-right: 200px;
 }
 
 #toolbar{
