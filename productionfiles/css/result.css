@@ -16,19 +16,52 @@ h1{
     
 }
 
+#xl{
+    letter-spacing: 1px; /* for xl */
+    font-size: 0.4rem; /* for xl */
+    line-height: 6px; /* for xl */
+    width: 985px; /* for xl */
+}
+#l{
+    letter-spacing: 2px; 
+    font-size: 0.6rem; 
+    line-height: 8px; 
+    width: 855px; 
+}
+#m{
+    letter-spacing: 3px; 
+    font-size: 0.8rem; 
+    line-height: 12px; 
+    width: 580px; 
+}
+#s{
+    letter-spacing: 4px; 
+    font-size: 0.85rem; 
+    line-height: 15px; 
+    width: 418px; 
+}
+
+
+/* make each size about 900px on screen (adjust letter spacing and line-height) */
 #t-container{
+  
+    letter-spacing: 1px; /* for xl */
+    font-size: 0.4rem; /* for xl */
+    line-height: 6px; /* for xl */
+    width: 985px; /* for xl */ 
     border-radius: 10px;
     border: 10px solid lightblue;
-    width: 190px;
+    /*width: 190px;*/
     height: auto;
-    max-width: 900px;
+    /*max-width: 900px;
     max-height: 900px;
-    /*min-width: 400px;
+    min-width: 400px;
     min-height: 400px;*/
     margin:auto;
-    padding:0;
-    padding-left: 200px;
-    padding-right: 200px;
+    padding:10px;
+    /*padding-left: 200px;
+    padding-right: 200px;*/
+    /* Maybe change padding/styling depending on what the inputs are ex. small/large */
 }
 
 #toolbar{

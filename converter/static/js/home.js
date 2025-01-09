@@ -48,7 +48,7 @@ function handleConvert()
   {
     let image = pic_input[0];
     formData.append('image_file',image);
-
+    //ADD ADDITONAL FORM DATA HERE
     let newImage = fetch(imageEndpoint,{
       method: 'POST',
       body: formData

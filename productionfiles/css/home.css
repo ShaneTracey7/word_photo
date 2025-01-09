@@ -14,22 +14,101 @@ h1{
 
 #main-content{
     margin: auto;
-    
+    display: flex;
+    flex-direction: row;
+   
+}
+#logo-img{
+    display: block;
+    margin: auto;
+    width: 180px;
+    height: 100px;
+    margin-top: 15px;
 }
 
 #img-container{
-    border-radius: 10px;
-    border: 10px solid lightblue;
+    border-radius: 15px;
+    border: 20px solid black;
     width: 70%;
     height: auto;
-    max-width: 900px;
-    max-height: 900px;
+    max-width: 700px;
+    max-height: 700px;
     min-width: 400px;
     min-height: 400px;
-    margin:auto;
     padding: 0;
+    margin-left: auto;
+    border-radius: 20px 0 0 20px;
+    background-color: darkgray;
+    
 }
 
+#shutter-button{
+    height: 46px;
+    width: 100px;
+    margin-top: -60px;
+    border: 2px solid black;
+    border-radius: 10px 10px 10px 10px;
+    background-image: radial-gradient( rgb(99, 99, 99),rgb(55, 55, 55), rgb(123, 122, 122));
+    margin-left: 30px;
+}
+
+#selection-area{
+   margin-top:auto;
+   height: 350px;
+   width: 90%;
+   margin-bottom: 20px;
+   display: flex;
+   flex-direction: column;
+   border: 10px solid green;
+}
+#right-camera{
+    width: 250px;
+    min-height: 100%;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(57, 57, 57);
+    border: 10px solid black;
+    border-radius: 0 40% 30px 0;
+}
+
+.circle-button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid black;
+    box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.368);
+    text-align: center;
+    background-image: linear-gradient(rgb(99, 99, 99),rgb(55, 55, 55),  rgb(123, 122, 122));
+    margin: auto;
+    line-height: 50px;
+    color: white;
+    
+}
+
+.button-row{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin:auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+#set-button{
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    top: 180px;
+    left: -1px;
+}
+#dial-img{
+    width: 150px;
+    height:150px;
+    margin:auto;
+    border-radius: 50%;
+    box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.368);
+}
 #toolbar{
     margin: auto;
     width:fit-content;
@@ -46,14 +125,52 @@ h1{
 
 }
 
-#img-upload{
+.tooltip{
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 95px;
+    background-color: rgb(255, 231, 75);
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    left: 110%;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+input[type="file"] {
+    display: none;
+  }
+  
+  #input-label{
+    display: inline-block;
+    width: 100%;
+    height:100%;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+#img-upload2{
     text-align: center;
     align-items: center;
     margin: auto;
+    
 }
 #selected-image{
-    max-width: 890px;
-    max-height: 900px;
+    max-width: 690px;
+    max-height: 700px;
     width: 98%;
     height: auto;
     min-width: 390px;
@@ -61,8 +178,10 @@ h1{
     padding-left: 6px;
     padding-right: 10px;
     padding-top: 5px;
+    padding-bottom: 5px;
     margin: 0;
     border: 0;
+    background-color: darkgray;
 }
 
 #convert-button{

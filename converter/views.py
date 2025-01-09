@@ -69,13 +69,30 @@ def clearDB():
 
 def convertImage(image):
 
+  size = 'xl'
+  nums = [0,0,0,0]
+  if size == 's':
+    nums = [792/162,8.8,30,54]
+  elif size == 'm':
+    nums = [3,5.28,50,88]
+  elif size == 'l':
+    nums = [1.5,2.64,100,176]
+  elif size == 'xl':
+    nums = [1,1.76,150,264]
+
   row_num = 12 # OG = 12
-  col_num = 66 # OG = 66
+  col_num = 66 # OG = 66 11,
   
   # Reading the image using imread() function
   print('i.path: ' + image.image_file.path)
   img = cv.imread(image.image_file.path,cv.IMREAD_GRAYSCALE)
   
+  #increases contrast for lighter pictures
+  #alpha = 1.25 # Contrast control
+  #beta = -120 # Brightness control
+
+  #img = cv.convertScaleAbs(img, alpha=alpha, beta=beta)
+
   # Extracting the height and width of an image
   h, w = img.shape[:2]
   #print("Height = {}, Width = {}".format(h, w))
@@ -112,7 +129,7 @@ def convertImage(image):
   
   print('originalArr: ')
   for coord in originalArr:
-    coord[1] = coord[1] // (row_num / 2) #6 OG 792/6 = 132
+    coord[1] = coord[1] // (nums[0]) # 162 132     6 OG 792/6 = 132 #NEW 792/22/7 = 108
     #coord[1] = coord[1] // 2 #3
 
   condensedArr1 = [] #defining a new array     
@@ -126,7 +143,7 @@ def convertImage(image):
   #displaying the new array with updated/unique elements
   print("condensedArr1 : ")
   for c in condensedArr1:                                                           # X  x  Y
-    c[0] = c[0] // (col_num /6)#((col_num / 3) / 3) #11 or (col_num / 9)   792/7.3 = 108 or 72     108 x 132
+    c[0] = c[0] // (nums[1])#  #90   72      ((col_num / 3) / 3) #11 or (col_num / 9)   792/7.3 = 108 or 72     108 x 132
                                                                                    #  36 x  44 (plotted on char array)
                                                                                    #  36   x  66   (char array)
   condensedArr2 = [] #defining a new array     
@@ -153,7 +170,7 @@ def convertImage(image):
     print(c)
 
   #creates and sets char array
-  strArr = createCharArr(finalSortArr,row_num,col_num)
+  strArr = createCharArr(finalSortArr,nums[2],nums[3])
 
 
   i_name = image.image_file.name
@@ -205,13 +222,13 @@ def extraSort(inArr):
 
 
 
-def createCharArr2(arr,row_num,col_num):
+def createCharArr2(arr,num2,num3):
   
   charArr = [] #set a empty char array
 
-  for i in range(0, (row_num * 3) + 1): #for small
+  for i in range(0, num2): #for small 37
   #for i in range(0, (row_num * 3) * 3): #(row_num * 9) for big
-    row = [' '] * (int(col_num * (2/3)))#44 for small
+    row = [' '] * (num3)# 2/3 44 for small     9/11 = 54
     #row = [' '] * (col_num) #66
     #row = [' '] * (col_num * 2)#132 for big
     charArr.append(row)      
@@ -220,6 +237,7 @@ def createCharArr2(arr,row_num,col_num):
   
   for i in arr:
     #charArr[i[0]][i[1]] = '|' #I for big
+    #          36             44 /3
     charArr[int(i[0]/3)][int(i[1]/3)] = '|' #I  # for small
   
   print("Char Array : ")
@@ -235,7 +253,7 @@ def createCharArr2(arr,row_num,col_num):
 
 
 
-def createCharArr(inArr,row_num,col_num):
+def createCharArr(inArr,num2,num3):
 
   top = "'"
   middle = ':'#could also be <:> or <•>
@@ -249,8 +267,8 @@ def createCharArr(inArr,row_num,col_num):
   charArr = [] #set a empty char array
 
   #initializes charArr with empty values
-  for i in range(0, (row_num * 3)+ 1): #(row_num * 9)
-    row = [' '] * (int(col_num * (2/3)))# was *2 132
+  for i in range(0, num2): #     36      (row_num * 9)
+    row = [' '] * (num3)# 2/3 44 for small     9/11 = 54
     #row = [' '] * (col_num)#
     charArr.append(row)   
 
@@ -276,7 +294,7 @@ def createCharArr(inArr,row_num,col_num):
       #is bottom
       #fv / 3 = new y-coord in charArr
       #charArr[int(col/3)][int(fv/3)] = bottom
-      i = i + 1#increment i
+      i = i + 1#increment i  66/max 
       charArr[int(fv/3)][int(col/3)] = bottom
       
     elif row % fv == 1:
@@ -288,16 +306,16 @@ def createCharArr(inArr,row_num,col_num):
         print('same col 2nd: ' + str(nextCol))
         if nextRow == (row+1):
           #is middle & bottom
-          charArr[int(fv/3)][int(col/3)] = mb
+          charArr[int(fv/3)][int(col/3)]  = mb
           i = i + 2#increment i
         else:
           #is middle
           i = i + 1#increment i
-          charArr[int(fv/3)][int(col/3)] = middle
+          charArr[int(fv/3)][int(col/3)]  = middle
       else:
         #is middle
         i = i + 1#increment i
-        charArr[int(fv/3)][int(col/3)] = middle
+        charArr[int(fv/3)][int(col/3)]  = middle
 
     else: #row % fv == 0
       print('1st')
@@ -310,7 +328,7 @@ def createCharArr(inArr,row_num,col_num):
           #is top & middle
           #is top & middle/ all
           if i+2 == arrLength:
-            charArr[int(fv/3)][int(col/3)] = tm
+            charArr[int(fv/3)][int(col/3)]  = tm
             i = i + 1#increment i
             break
           else:
@@ -321,26 +339,26 @@ def createCharArr(inArr,row_num,col_num):
               if nextNextRow == (row+2):
                 #is all
                 print('all')
-                charArr[int(fv/3)][int(col/3)] = all
+                charArr[int(fv/3)][int(col/3)]  = all
                 i = i + 3#increment i
               else:
                 #is top & middle
                 print('top & middle')
-                charArr[int(fv/3)][int(col/3)] = tm
+                charArr[int(fv/3)][int(col/3)]  = tm
                 i = i + 2#increment i
             else:
               #is top & middle
-              charArr[int(fv/3)][int(col/3)] = tm
+              charArr[int(fv/3)][int(col/3)]  = tm
               i = i + 2#increment i
         else:
           if nextRow == (row+2):
             #is top & bottom
-            charArr[int(fv/3)][int(col/3)] = tb
+            charArr[int(fv/3)][int(col/3)]  = tb
             i = i + 2#increment i
           else:
             #is top
             i = i + 1#increment i
-            charArr[int(fv/3)][int(col/3)] = top
+            charArr[int(fv/3)][int(col/3)]  = top
 
       else:
         #is top

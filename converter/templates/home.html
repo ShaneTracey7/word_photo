@@ -6,7 +6,8 @@
    <title> Word Photo</title>
     <body>
         <div id="title-content">
-            <h1>Word photo</h1> <!-- Will make logo and change to image instead of title-->
+            <!-- <h1>Word photo</h1> Will make logo and change to image instead of title-->
+            <img id="logo-img"src="{% static 'img/wp-logo.png' %}" alt="logo">
             <h3>Convert a photo into an array of keyboard characters</h3>
         </div>
         <div id="main-content">
@@ -14,12 +15,38 @@
                 <img id="selected-image" src="" alt="">
             </div>
 
-            <div id="toolbar">
-                <!-- photo input -->
-                <input onclick="handleImageSelection()" type="file" id="img-upload" accept="image/*" width="780">
-                <button onclick="handleConvert()" class="button" id="convert-button"> Convert </button>
-                <button onclick="handleClear()" class="button" id="cancel-button" > Cancel </button> 
+            <div id="right-camera">
+                <div id="shutter-button" >
+                    <label for="img-upload" class="tooltip" id="input-label">
+                        <span class="tooltiptext">Select photo</span>
+                    </label>
+                    <input onclick="handleImageSelection()" type="file" id="img-upload"  accept="image/*">
+                    
+                </div>
+                    <div id="selection-area">
+                        <div class="circle-button" id="set-button">SET</div>
+                        <div class="button-row">
+                            <div class="circle-button"></div>
+                            <div class="circle-button"></div>
+                        </div>
+                        <img id="dial-img"src="{% static 'img/dial.png' %}" alt="dial">
+                        <!-- <div id="circle-selection">
+                   
+                        </div> -->
+
+                        <div class="button-row">
+                            <div class="circle-button"></div>
+                        <div class="circle-button"></div>
+                        </div>
+                    </div>
             </div>
+            
+        </div>
+        <div id="toolbar">
+            <!-- photo input -->
+            <input onclick="handleImageSelection()" type="file" id="img-upload" accept="image/*">
+            <button onclick="handleConvert()" class="button" id="convert-button"> Convert </button>
+            <button onclick="handleClear()" class="button" id="cancel-button" > Cancel </button> 
         </div>
         <script type="text/javascript" src="{% static 'js/home.js' %}"></script>  
     </body>
