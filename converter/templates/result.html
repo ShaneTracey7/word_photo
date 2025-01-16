@@ -6,28 +6,72 @@
    <title> Word Photo</title>
     <body>
         <div id="title-content">
-            <h1>Word photo</h1> <!-- Will make logo and change to image instead of title-->
+            <img id="logo-img"src="{% static 'img/wp-logo.png' %}" alt="logo">
             <h3>Convert a photo into an array of keyboard characters</h3>
         </div>
         <div id="main-content">
             
-
-            <div id="t-container" contenteditable='true'>
-                {% for text in value %} 
-                <pre class="rows">{{ text|join:""}}</pre> 
-                {% endfor %}
+            {% if size == "SMALL" %}
+            <div class="print" id="p-s">
+                <div id="t-container" class="s" contenteditable='true'>
+                    {% for text in value %} 
+                    <pre class="rows">{{ text|join:""}}</pre> 
+                    {% endfor %}
+                </div>
+                <p id="char-info-heading"> Update your word editor's settings to get similar results:</p>
+                <p class="char-info"> Line height: 15px</p>
+                <p class="char-info"> Font size: 0.85rem</p>
+                <p class="char-info" id="char-info-last"> Letter spacing: 4px</p>
+            </div>
+            {% elif size == "MEDIUM" %}
+            <div class="print" id="p-m">
+                <div id="t-container" class="m" contenteditable='true'>
+                    {% for text in value %} 
+                    <pre class="rows">{{ text|join:""}}</pre> 
+                    {% endfor %}
+                </div>
+                <p id="char-info-heading"> Update your word editor's settings to get similar results:</p>
+                <p class="char-info"> Line height: 12px</p>
+                <p class="char-info"> Font size: 0.8rem</p>
+                <p class="char-info" id="char-info-last"> Letter spacing: 3px</p>
+            </div>
+            {% elif size == "LARGE" %}
+            <div class="print" id="p-l">
+                <div id="t-container" class="l" contenteditable='true'>
+                    {% for text in value %} 
+                    <pre class="rows">{{ text|join:""}}</pre> 
+                    {% endfor %}
+                </div>
+                <p id="char-info-heading"> Update your word editor's settings to get similar results:</p>
+                <p class="char-info"> Line height: 8px</p>
+                <p class="char-info"> Font size: 0.6rem</p>
+                <p class="char-info" id="char-info-last"> Letter spacing: 2px</p>
+            </div>
+            {% elif size == "X-LARGE" %}
+            <div class="print" id="p-xl">
+                <div id="t-container" class="xl" contenteditable='true'>
+                    {% for text in value %} 
+                    <pre class="rows">{{ text|join:""}}</pre> 
+                    {% endfor %}
+                </div>
+                <p id="char-info-heading"> Update your word editor's settings to get similar results:</p>
+                <p class="char-info"> Line height: 6px</p>
+                <p class="char-info"> Font size: 0.4rem</p>
+                <p class="char-info" id="char-info-last"> Letter spacing: 1px</p>
+            </div>
+            {% endif %} 
                 
             </div>
 
             <div id="toolbar">
-                <!-- photo input -->
-                <button onclick="handleReset()" class="button" id="reset-button" > Reset </button>
                 <button onclick="handleCopy()" class="button" id="copy-button" > Copy </button>
+                <button onclick="handleReset()" class="button" id="reset-button" > Reset </button>
             </div>
             
         </div>
 
         <script type="text/javascript" src="{% static 'js/result.js' %}"></script>  
     </body>
+    <footer>Created by Shane T.</footer>
 </html>
 

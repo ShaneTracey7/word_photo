@@ -1,12 +1,8 @@
 h3 {
-    /*font-weight: bold;*/
     text-align: center;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-h1{
-    text-align: center;
-}
 #title-content{
     margin: auto;
     width: 70%;
@@ -39,7 +35,6 @@ h1{
     margin-left: auto;
     border-radius: 20px 0 0 20px;
     background-color: darkgray;
-    
 }
 
 #shutter-button{
@@ -52,14 +47,22 @@ h1{
     margin-left: 30px;
 }
 
+footer{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top:50px;
+    text-align: center;
+}
+
 #selection-area{
    margin-top:auto;
    height: 350px;
    width: 90%;
-   margin-bottom: 20px;
+   margin-bottom: 60px;
    display: flex;
    flex-direction: column;
-   border: 10px solid green;
+   /*border: 10px solid green;*/
 }
 #right-camera{
     width: 250px;
@@ -83,7 +86,6 @@ h1{
     margin: auto;
     line-height: 50px;
     color: white;
-    
 }
 
 .button-row{
@@ -93,37 +95,88 @@ h1{
     margin:auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    
+}
+
+.arrow{
+    width:15px;
+    height:20px;
+    padding:3px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#dial-buttons-container{
+
+    width:fit-content;
+    z-index: 2;
+    position: relative;
+    top: 175px;
+    left: -1px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 #set-button{
     text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    line-height: 45px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+}
+
+/* I will implement/figure this out later*/
+#frame{
+    display:none;
+    border: 5px solid rgb(234, 96, 96);
     z-index: 2;
     position: relative;
-    top: 180px;
-    left: -1px;
+    top: -100px; /* depends upon size of pic */
+    left: 10px;
+    width: 100px;
+    height: 100px;
 }
+
+#trash-can{
+    width:20px;
+    height:20px;
+}
+
+#mini-screen{
+    background-image: linear-gradient(rgb(134, 240, 149),green); 
+    padding: 0;
+    border-radius: 5px;
+    border: 3px solid black;
+    width: 120px;
+    height: 30px;
+    box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.368);
+    margin: auto;
+    text-align: center;
+    margin-top: 0px;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+#mini-screen-text{
+    background-color: transparent;
+    color: white;
+    padding-bottom: 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 1rem;
+    margin: auto;
+}
+
 #dial-img{
     width: 150px;
     height:150px;
     margin:auto;
+    margin-bottom: 0;
+    margin-top: 0;
     border-radius: 50%;
     box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.368);
 }
-#toolbar{
-    margin: auto;
-    width:fit-content;
-    height: 60px;
-    margin-top: 50px;
-    background-color: lightblue;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    vertical-align: middle;
-    padding-left: 30px;
-    padding-right: 30px;
-    gap: 30px;
 
-}
 
 .tooltip{
     position: relative;
@@ -162,12 +215,7 @@ input[type="file"] {
     cursor: pointer;
   }
 
-#img-upload2{
-    text-align: center;
-    align-items: center;
-    margin: auto;
-    
-}
+
 #selected-image{
     max-width: 690px;
     max-height: 700px;
@@ -184,25 +232,7 @@ input[type="file"] {
     background-color: darkgray;
 }
 
-#convert-button{
-    display:none;
-    background-color: rgb(23, 150, 32);
-}
-
 #cancel-button{
-    display:none;
-    background-color: rgb(211, 87, 34);
-}
-
-.button{
-    border-radius: 15px;
-    color: white;
-    border: 0;
-    width: 120px;
-    height: 40px;
-    font-weight: bold;
-    font-size: 1rem;
-    text-align: center;
-    align-items: center;
-    margin: auto;
+    margin-left: auto;
+    margin-right: 0;
 }

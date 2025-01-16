@@ -28,6 +28,7 @@ def result(request):
     template = loader.get_template('result.html')
     context = {
         'value' : convertImage(img),
+        'size' : img.size
       }
     return HttpResponse(template.render(context, request))
   else:
@@ -37,12 +38,14 @@ def result(request):
       }
     print('nothing in db')
     return HttpResponse(template.render(context,request))
+  
 @csrf_exempt
 def handleImage(request,id=id):
   if request.method =='POST':
     img = request.FILES.get('image_file')
+    size = request.POST.get('size')
     myFile = File(img)
-    i = Image.create(myFile)
+    i = Image.create(myFile,size)
     i.save()
     return JsonResponse('Saved image',safe=False)
   else:
@@ -69,15 +72,15 @@ def clearDB():
 
 def convertImage(image):
 
-  size = 'xl'
+  size = image.size
   nums = [0,0,0,0]
-  if size == 's':
+  if size == 'SMALL':
     nums = [792/162,8.8,30,54]
-  elif size == 'm':
+  elif size == 'MEDIUM':
     nums = [3,5.28,50,88]
-  elif size == 'l':
+  elif size == 'LARGE':
     nums = [1.5,2.64,100,176]
-  elif size == 'xl':
+  elif size == 'X-LARGE':
     nums = [1,1.76,150,264]
 
   row_num = 12 # OG = 12
@@ -95,18 +98,15 @@ def convertImage(image):
 
   # Extracting the height and width of an image
   h, w = img.shape[:2]
-  #print("Height = {}, Width = {}".format(h, w))
 
   #crop image to make square
   if h > w:
     
-    print('height is larger')
     row_start = (h//2) - (w//2)
     row_end = (h//2) + (w//2)
     # [rows, columns] 
     cropped_image = img[row_start:row_end,0:w]
   else:
-    print('width is larger')
     col_start = (w//2) - (h//2)
     col_end = (w//2) + (h//2)
     # [rows, columns] 
@@ -129,8 +129,7 @@ def convertImage(image):
   
   print('originalArr: ')
   for coord in originalArr:
-    coord[1] = coord[1] // (nums[0]) # 162 132     6 OG 792/6 = 132 #NEW 792/22/7 = 108
-    #coord[1] = coord[1] // 2 #3
+    coord[1] = coord[1] // (nums[0]) 
 
   condensedArr1 = [] #defining a new array     
      
@@ -142,10 +141,9 @@ def convertImage(image):
 
   #displaying the new array with updated/unique elements
   print("condensedArr1 : ")
-  for c in condensedArr1:                                                           # X  x  Y
-    c[0] = c[0] // (nums[1])#  #90   72      ((col_num / 3) / 3) #11 or (col_num / 9)   792/7.3 = 108 or 72     108 x 132
-                                                                                   #  36 x  44 (plotted on char array)
-                                                                                   #  36   x  66   (char array)
+  for c in condensedArr1:                                                           
+    c[0] = c[0] // (nums[1])
+
   condensedArr2 = [] #defining a new array     
      
   for i in condensedArr1:
@@ -154,24 +152,16 @@ def convertImage(image):
 
   condensedArr2 = np.array(condensedArr2)
 
-  #print("Array b4 sort: ")
-  #for c in new2:
-    #print(c)
-
   Index = 1
   colSortArr = condensedArr2[condensedArr2[:,Index].argsort()]
-  #print("Array after 1st sort: ")
-  #for c in colSortArr :
+ 
+  finalSortArr = extraSort(colSortArr)
+  #print("Array after final sort: ")
+  #for c in finalSortArr:
     #print(c)
-  #
-  finalSortArr = extraSort(colSortArr) #extraSort(colSortArr) #finalSortArr = extraSort(colSortArr) 
-  print("Array after final sort: ")
-  for c in finalSortArr:
-    print(c)
 
   #creates and sets char array
   strArr = createCharArr(finalSortArr,nums[2],nums[3])
-
 
   i_name = image.image_file.name
   #very last step
@@ -181,20 +171,13 @@ def convertImage(image):
 
   return strArr
 
-
-
-
-
-
 # called after inArr has been sorted by column coordinate (Y-value)
 # sorts groups of coordinates with same Y-value , by their X-value 
 #keeps giving me index out of 
 def extraSort(inArr):
 
-  start = time.time()
+  #start = time.time()
   arrLength = np.size(inArr,axis=0)
-  print('array length: ')
-  print(arrLength)
   for i in range(0, arrLength-1):
     col = inArr[i][1]
     count = 1
@@ -213,32 +196,23 @@ def extraSort(inArr):
       i = i + group_size -1 # -1 bc loop already increments 1 i think
 
   #for testinf purposes
-  end = time.time() 
-  print(end - start)
-
+  #end = time.time() 
+  #print(end - start)
   return inArr
 
-
-
-
-
+# less detailed char arr
 def createCharArr2(arr,num2,num3):
   
   charArr = [] #set a empty char array
 
-  for i in range(0, num2): #for small 37
-  #for i in range(0, (row_num * 3) * 3): #(row_num * 9) for big
-    row = [' '] * (num3)# 2/3 44 for small     9/11 = 54
-    #row = [' '] * (col_num) #66
-    #row = [' '] * (col_num * 2)#132 for big
+  for i in range(0, num2): 
+    row = [' '] * (num3)
     charArr.append(row)      
   
   strArr = []
   
   for i in arr:
-    #charArr[i[0]][i[1]] = '|' #I for big
-    #          36             44 /3
-    charArr[int(i[0]/3)][int(i[1]/3)] = '|' #I  # for small
+    charArr[int(i[0]/3)][int(i[1]/3)] = '|'
   
   print("Char Array : ")
   for c in charArr:
@@ -252,7 +226,7 @@ def createCharArr2(arr,num2,num3):
   
 
 
-
+# more detailed char arr
 def createCharArr(inArr,num2,num3):
 
   top = "'"
@@ -263,47 +237,41 @@ def createCharArr(inArr,num2,num3):
   all = '|'
   tb = ';' # top and bottom option 
   
-
   charArr = [] #set a empty char array
 
   #initializes charArr with empty values
-  for i in range(0, num2): #     36      (row_num * 9)
-    row = [' '] * (num3)# 2/3 44 for small     9/11 = 54
-    #row = [' '] * (col_num)#
+  for i in range(0, num2):
+    row = [' '] * (num3)
     charArr.append(row)   
 
   arrLength = np.size(inArr,axis=0)
-  print('array length: ')
-  print(arrLength)
-  #for i in range(0, arrLength-1): # iterate through each coordinate
+
   i = 0
   while i < arrLength-1: # iterate through each coordinate
-    if i == 0:
-      print('col:')
-      print(inArr[i][1])
-      print('row:')
-      print(inArr[i][0])
-    col = inArr[i][1] # was 1 26 y 108 inArr[0] = 108
-    row = inArr[i][0] # was 0 31 x
+    #if i == 0:
+      #print('col:')
+      #print(inArr[i][1])
+      #print('row:')
+      #print(inArr[i][0])
+    col = inArr[i][1] 
+    row = inArr[i][0] 
 
     #get first value (find range) (x // 3) * 3 (returns first value in range)
     fv = (row // 3) * 3
     if row % fv == 2:
-      print('3rd')
-      print('col: ' + str(col))
+      #print('3rd')
+      #print('col: ' + str(col))
       #is bottom
-      #fv / 3 = new y-coord in charArr
-      #charArr[int(col/3)][int(fv/3)] = bottom
-      i = i + 1#increment i  66/max 
+      i = i + 1#increment i 
       charArr[int(fv/3)][int(col/3)] = bottom
       
     elif row % fv == 1:
-      print('2nd')
+      #print('2nd')
       #is middle/middle & bottom
       nextCol = inArr[i+1][1]
       nextRow = inArr[i+1][0]
       if nextCol == col:
-        print('same col 2nd: ' + str(nextCol))
+        #print('same col 2nd: ' + str(nextCol))
         if nextRow == (row+1):
           #is middle & bottom
           charArr[int(fv/3)][int(col/3)]  = mb
@@ -317,13 +285,13 @@ def createCharArr(inArr,num2,num3):
         i = i + 1#increment i
         charArr[int(fv/3)][int(col/3)]  = middle
 
-    else: #row % fv == 0
-      print('1st')
+    else: 
+      #print('1st')
       #is top/top & middle/top & bottom/all
       nextCol = inArr[i+1][1]
       nextRow = inArr[i+1][0]
       if nextCol == col:
-        print('same col 1st: ' + str(nextCol))
+        #print('same col 1st: ' + str(nextCol))
         if nextRow == (row+1):
           #is top & middle
           #is top & middle/ all
@@ -335,15 +303,15 @@ def createCharArr(inArr,num2,num3):
             nextNextCol = inArr[i+2][1]
             nextNextRow = inArr[i+2][0]
             if nextNextCol == col:
-              print('same col 1st 2nd: '+ str(nextNextCol))
+              #print('same col 1st 2nd: '+ str(nextNextCol))
               if nextNextRow == (row+2):
                 #is all
-                print('all')
+                #print('all')
                 charArr[int(fv/3)][int(col/3)]  = all
                 i = i + 3#increment i
               else:
                 #is top & middle
-                print('top & middle')
+                #print('top & middle')
                 charArr[int(fv/3)][int(col/3)]  = tm
                 i = i + 2#increment i
             else:

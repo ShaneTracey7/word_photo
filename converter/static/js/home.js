@@ -1,3 +1,37 @@
+
+
+//changes text inside of mini-screen 
+function changeSize(increase)
+{
+  let screen = document.getElementById("mini-screen-text");
+  let initial_val = document.getElementById("mini-screen-text").innerHTML;
+  let sizes = ["SMALL", "MEDIUM", "LARGE","X-LARGE"]
+  let index = sizes.indexOf(initial_val);
+  if(increase)
+  {
+    if(index == 3)
+    {
+      screen.innerHTML = sizes[0]
+    }
+    else
+    {
+      screen.innerHTML = sizes[(index + 1)]
+    }
+  }
+  else //decrease
+  {
+    if(index == 0)
+      {
+        screen.innerHTML = sizes[3]
+      }
+      else
+      {
+        screen.innerHTML = sizes[(index - 1)]
+      }
+  }
+}
+
+//resets home page (removes image from html element, clears input ,and disables buttons)
 function handleClear()
 {
   console.log('inside handleclear');
@@ -5,30 +39,31 @@ function handleClear()
     //clear input
     document.getElementById("img-upload").value = null;
 
-    //hide buttons
-    document.getElementById('convert-button').style.display = "none";
-    document.getElementById('cancel-button').style.display = "none";
+    //disable buttons
+    document.getElementById("set-button").disabled = true;
+    document.getElementById("cancel-button").disabled = true;
 
     //remove image
     document.getElementById('selected-image').src = null;
 }
 
+//enables buttons and sets image to html element
 function handleImageSelection()
 {
-//on change event listener for #file-select
 document.getElementById("img-upload").onchange = function() {
 
     try{
     var image_name = String(document.getElementById("img-upload").value);
     
-    if(image_name.length > 0)
+    if(image_name.length > 0) //image exists
     {
-        //image exists
+        //set image to element
         document.getElementById('selected-image').src = window.URL.createObjectURL(this.files[0]);
 
-        //show buttons
-        document.getElementById('convert-button').style.display = "block";
-        document.getElementById('cancel-button').style.display = "block";
+        //enable buttons
+        document.getElementById("set-button").disabled = false;
+        document.getElementById("cancel-button").disabled = false;
+
     }
     }
     catch (e)
@@ -38,17 +73,21 @@ document.getElementById("img-upload").onchange = function() {
 };
 }
 
+
+//called upon click of 'SET' button and sends data to back-end
 function handleConvert()
 {
-  
   const imageEndpoint = 'http://127.0.0.1:8000/data/'; //might need to change this
   let formData = new FormData();
-  let pic_input = (document.getElementById("img-upload")).files; //had to make some changes to OG
+  let pic_input = (document.getElementById("img-upload")).files; 
   if( pic_input != null && pic_input?.item(0))
   {
     let image = pic_input[0];
     formData.append('image_file',image);
-    //ADD ADDITONAL FORM DATA HERE
+
+    let size = document.getElementById("mini-screen-text").innerHTML;
+    formData.append("size",size);
+   
     let newImage = fetch(imageEndpoint,{
       method: 'POST',
       body: formData
@@ -56,10 +95,4 @@ function handleConvert()
 
      window.location.href = 'http://127.0.0.1:8000/result/';
   }
-     
-}
-
-function test()
-{
-  return 'hello'
 }

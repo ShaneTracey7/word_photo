@@ -1,3 +1,5 @@
+
+//copy's char array to clipboard
 function handleCopy()
 {
     console.log('copy');
@@ -5,6 +7,7 @@ function handleCopy()
     navigator.clipboard.writeText(val);
 }
 
+//directs to home page
 function handleReset()
 {
     console.log('reset');
