@@ -1,0 +1,10 @@
+asgiref==3.7.2
+dj-database-url==2.3.0
+Django==5.0.2
+numpy==2.2.1
+opencv-python==4.10.0.84
+pillow==11.1.0
+python-dotenv==1.0.1
+sqlparse==0.4.4
+typing_extensions==4.12.2
+whitenoise==6.8.2

@@ -1,11 +1,8 @@
 h3 {
-    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     text-align: center;
 }
 
-h1{
-    text-align: center;
-}
 #title-content{
     margin: auto;
     width: 70%;
@@ -15,7 +12,7 @@ h1{
     margin: auto;
     
 }
-#char-info-heading-s{
+#char-info-heading{
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.8rem;
     padding: 0;
@@ -24,7 +21,8 @@ h1{
     margin-left: auto;
     margin-right: auto;
 }
-.char-info-s{
+
+.char-info{
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.8rem;
     padding: 0;
@@ -34,36 +32,10 @@ h1{
     margin-left: auto;
     margin-right: auto;
 }
-#char-info-s-last{
+
+#char-info-last{
     margin-bottom: 40px;
 }
-
-#char-info-m{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.8rem;
-    padding: 5px;
-    margin-bottom: 80px;
-    width: 418px;
-    margin-left: 25px;
-}
-#char-info-l{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.8rem;
-    padding: 5px;
-    margin-bottom: 80px;
-    width: 418px;
-    margin-left: 25px;
-}
-#char-info-xl{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.8rem;
-    padding: 5px;
-    margin-bottom: 80px;
-    width: 418px;
-    margin-left: 25px;
-}
-
-
 
 #logo-img{
     display: block;
@@ -77,15 +49,15 @@ h1{
     margin: auto;
     width:fit-content;
     height: 60px;
-    margin-top: 50px;
+    margin-top: 20px;
     background-color: rgb(186, 186, 186);
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     vertical-align: middle;
-    padding-left: 30px;
-    padding-right: 30px;
-    gap: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 20px;
 
 }
 
@@ -103,13 +75,11 @@ h1{
     border: 0;
 }
 
-
-
 .button{
     border-radius: 15px;
     color: white;
     border: 0;
-    width: 120px;
+    width: 80px;
     height: 40px;
     font-weight: bold;
     font-size: 1rem;
@@ -119,31 +89,26 @@ h1{
     
 }
 
-
-
-
-
-
-
-
-
 .xl{
-    letter-spacing: 1px; /* for xl */
-    font-size: 0.4rem; /* for xl */
-    line-height: 6px; /* for xl */
-    width: 985px; /* for xl */
+    letter-spacing: 1px; 
+    font-size: 0.4rem; 
+    line-height: 6px; 
+    width: 810px; 
+    margin-top: 20px;
 }
 .l{
     letter-spacing: 2px; 
     font-size: 0.6rem; 
     line-height: 8px; 
-    width: 855px; 
+    width: 855px;
+    margin-top: 20px;
 }
 .m{
     letter-spacing: 3px; 
     font-size: 0.8rem; 
     line-height: 12px; 
-    width: 580px; 
+    width: 580px;
+    margin-top: 20px; 
 }
 .s{
     letter-spacing: 4px; 
@@ -151,37 +116,42 @@ h1{
     line-height: 15px; 
     width: 418px; 
     margin-top: 20px;
-    /*margin-bottom: 120px;*/
-    
 }
 
-#print{
-    width: 480px;
+footer{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top:50px;
+    text-align: center;
+}
+
+.print{
     height: auto;
     background-color: white;
     border: 2px solid black;
     margin:auto;
 }
+#p-s{
+    width: 480px;
+}
+#p-m{
+    width: 640px;
+}
+#p-l{
+    width: 915px;
+}
+#p-xl{
+    width: 870px;
+}
 
-/* make each size about 900px on screen (adjust letter spacing and line-height) */
 #t-container{
     background-color: black;
     border-radius: 10px;
-    /*width: 190px;*/
     height: auto;
     margin-left:auto;
     margin-right:auto;
-    /*max-width: 900px;
-    max-height: 900px;
-    min-width: 400px;
-    min-height: 400px;*/
-    
-    padding-bottom: 100px;
     padding:10px;
-    
-    /*padding-left: 200px;
-    padding-right: 200px;*/
-    /* Maybe change padding/styling depending on what the inputs are ex. small/large */
 }
 
 #reset-button{
@@ -191,7 +161,7 @@ h1{
 }
 
 #copy-button{
-    background-color: blue;
+    background-color: rgb(255, 219, 110);
     display:block;
 }
 

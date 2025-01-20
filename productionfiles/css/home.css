@@ -1,12 +1,8 @@
 h3 {
-    /*font-weight: bold;*/
     text-align: center;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-h1{
-    text-align: center;
-}
 #title-content{
     margin: auto;
     width: 70%;
@@ -51,14 +47,22 @@ h1{
     margin-left: 30px;
 }
 
+footer{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top:50px;
+    text-align: center;
+}
+
 #selection-area{
    margin-top:auto;
    height: 350px;
    width: 90%;
-   margin-bottom: 20px;
+   margin-bottom: 60px;
    display: flex;
    flex-direction: column;
-   border: 10px solid green;
+   /*border: 10px solid green;*/
 }
 #right-camera{
     width: 250px;
@@ -82,19 +86,17 @@ h1{
     margin: auto;
     line-height: 50px;
     color: white;
-    
 }
 
 .button-row{
     display: flex;
     flex-direction: row;
     width: 90%;
-    margin-left:auto;
-    margin-right: 20px;
+    margin:auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    
 }
+
 .arrow{
     width:15px;
     height:20px;
@@ -103,11 +105,11 @@ h1{
     padding-bottom: 20px;
 }
 #dial-buttons-container{
-    /*width:150px;*/
+
     width:fit-content;
     z-index: 2;
     position: relative;
-    top: 172px;
+    top: 175px;
     left: -1px;
     display:flex;
     flex-direction: row;
@@ -174,21 +176,7 @@ h1{
     border-radius: 50%;
     box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.368);
 }
-#toolbar{
-    margin: auto;
-    width:fit-content;
-    height: 60px;
-    margin-top: 50px;
-    background-color: lightblue;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    vertical-align: middle;
-    padding-left: 30px;
-    padding-right: 30px;
-    gap: 30px;
 
-}
 
 .tooltip{
     position: relative;
@@ -227,12 +215,7 @@ input[type="file"] {
     cursor: pointer;
   }
 
-#img-upload2{
-    text-align: center;
-    align-items: center;
-    margin: auto;
-    
-}
+
 #selected-image{
     max-width: 690px;
     max-height: 700px;
@@ -249,25 +232,7 @@ input[type="file"] {
     background-color: darkgray;
 }
 
-#convert-button{
-    display:none;
-    background-color: rgb(23, 150, 32);
-}
-
 #cancel-button{
-    /*display:none;*/
-   /* background-color: rgb(211, 87, 34);*/
-}
-
-.button{
-    border-radius: 15px;
-    color: white;
-    border: 0;
-    width: 120px;
-    height: 40px;
-    font-weight: bold;
-    font-size: 1rem;
-    text-align: center;
-    align-items: center;
-    margin: auto;
+    margin-left: auto;
+    margin-right: 0;
 }
