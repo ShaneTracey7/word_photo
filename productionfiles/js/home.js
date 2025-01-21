@@ -93,6 +93,9 @@ function handleConvert()
       body: formData
      });
 
-     window.location.href = 'http://127.0.0.1:8000/result/';
+     setTimeout(() => {
+      window.location.href = 'http://127.0.0.1:8000/result/';
+    }, 2000);
+     
   }
 }
