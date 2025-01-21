@@ -77,7 +77,7 @@ document.getElementById("img-upload").onchange = function() {
 //called upon click of 'SET' button and sends data to back-end
 function handleConvert()
 {
-  const imageEndpoint = 'http://127.0.0.1:8000/data/'; //might need to change this
+  const imageEndpoint = 'https://shantrac.pythonanywhere.com/data/'; // local env testing: 'http://127.0.0.1:8000/data/'
   let formData = new FormData();
   let pic_input = (document.getElementById("img-upload")).files; 
   if( pic_input != null && pic_input?.item(0))
@@ -93,6 +93,9 @@ function handleConvert()
       body: formData
      });
 
-     window.location.href = 'http://127.0.0.1:8000/result/';
+     setTimeout(() => {
+      window.location.href = 'https://shantrac.pythonanywhere.com/result/'; // local env testing: 'http://127.0.0.1:8000/result/'
+    }, 2000);
+     
   }
 }

@@ -54,12 +54,14 @@ def handleImage(request,id=id):
 
 def clearDB():
   Image.objects.all().delete()
-  parent = "/Users/Jarvis/Desktop/wpVirtEnv/word_photo/"
+  # local env testing: 'parent = "/Users/Jarvis/Desktop/wpVirtEnv/word_photo/'
+  parent = "/home/shantrac/word_photo/"
   folder_path = os.path.join(parent, "images")
   # check if directory contain
-  if len(os.listdir(folder_path)) == 0:
+  if len(os.listdir(folder_path)) == 0: 
     print("Directory is empty")
-  else:    
+  else:   
+    #doesn't work within pythonanywhere 
     print("Directory is not empty")
     # List all files in the directory
     for filename in os.listdir(folder_path):

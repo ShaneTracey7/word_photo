@@ -11,5 +11,5 @@ function handleCopy()
 function handleReset()
 {
     console.log('reset');
-    window.location.href = 'http://127.0.0.1:8000/home/';
+    window.location.href = 'https://shantrac.pythonanywhere.com/home/'; // local env testing: 'http://127.0.0.1:8000/home/'
 }

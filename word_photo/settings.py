@@ -22,13 +22,18 @@ load_dotenv(os.path.join(BASE_DIR/".eVar", ".env"))
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-72!f&byval)mb%o@bbil^#_=)n%95lt=ppqw*y1)s%j*lq4+*@' #os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-ALLOWED_HOSTS += os.environ.get("ALLOWED_HOSTS").split()
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", 'shantrac.pythonanywhere.com']
+
+host_list = os.environ.get("ALLOWED_HOSTS")
+if not host_list:
+    host_list = "" # equivalent to doing nothing
+else:
+    ALLOWED_HOSTS += os.environ.get("ALLOWED_HOSTS").split()
 #"shantrac.pythonanywhere.com","127.0.0.1"
 
 # Application definition
